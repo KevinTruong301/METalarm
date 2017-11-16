@@ -17,15 +17,10 @@ public class alarmDB {
     public static final int    DB_VERSION = 1;
 
     // alarm table constants
-
-    // task table constants
     public static final String ALARM_TABLE = "alarms";
 
     public static final String ALARM_ID = "_id";
     public static final int    ALARM_ID_COL = 0;
-
-    public static final String ALARM_LIST_ID = "alarm_id";
-    public static final int    ALARM_LIST_ID_COL = 1;
 
     public static final String ALARM_NAME = "alarm_name";
     public static final int    ALARM_NAME_COL = 1;
@@ -62,16 +57,6 @@ public class alarmDB {
         public void onCreate(SQLiteDatabase db) {
             // create tables
             db.execSQL(CREATE_TASK_TABLE);
-
-            // insert lists
-            //db.execSQL("INSERT INTO list VALUES (1, 'Personal')");
-            //db.execSQL("INSERT INTO list VALUES (2, 'Business')");
-
-            // insert sample tasks
-            /*db.execSQL("INSERT INTO task VALUES (1, 1, 'Pay bills', " +
-                    "'Rent\nPhone\nInternet', '0', '0')");
-            db.execSQL("INSERT INTO task VALUES (2, 1, 'Get hair cut', " +
-                    "'', '0', '0')");*/
         }
 
         @Override
@@ -175,7 +160,6 @@ public class alarmDB {
 
     public int updateAlarm(item_alarm task) {
         ContentValues cv = new ContentValues();
-        cv.put(ALARM_LIST_ID, task.getListId());
         cv.put(ALARM_NAME, task.getName());
         cv.put(ALARM_HOUR, task.getHour());
         cv.put(ALARM_MIN, task.getMin());

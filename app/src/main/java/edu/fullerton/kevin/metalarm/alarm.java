@@ -3,6 +3,7 @@ package edu.fullerton.kevin.metalarm;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.AlarmClock;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,9 @@ public class alarm extends AppCompatActivity {
     private ArrayList<HashMap<String, String>> data;
     private alarmDB db;
     private StringBuilder sb;
+    private int numAlarms;
+    private int num;
+    private ArrayList<item_alarm> alarm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +33,7 @@ public class alarm extends AppCompatActivity {
 
         db = new alarmDB(this);
         sb = new StringBuilder();
-
+        num = 0;
 
         loadEvents();
 
@@ -68,12 +72,10 @@ public class alarm extends AppCompatActivity {
         String[] from = {"name", "time"};
         int [] to = {R.id.alarmName, R.id.alarmTime};
 
+        alarm = db.getAlarms();
+        numAlarms = alarm.size();
 
-
-        ArrayList<item_alarm> task = db.getAlarms();
-
-
-        for (item_alarm t: task){
+        for (item_alarm t: alarm){
             //sb.append(t.getHour() + "" + t.getName()+"\n");
 
             HashMap<String, String> map = new HashMap<String , String >();
@@ -84,27 +86,33 @@ public class alarm extends AppCompatActivity {
 
         }
 
-
-        //put a forloop here to
-
-
-
         SimpleAdapter adapter = new SimpleAdapter(this, data, resource, from, to);
         alarmListView.setAdapter(adapter);
 
 
     }
-
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            if(resultCode == RESULT_OK) {
-                String strEditText = data.getStringExtra("editTextValue");
-            }
-        }
+        setAlarms();
     }
 
     private void setAlarms(){
+        try{
+            item_alarm a = alarm.get(num);
+            int hr = a.getHour();
+            int min = a.getMin();
+            Intent i = new Intent(AlarmClock.ACTION_SET_ALARM);
+            i.putExtra(AlarmClock.EXTRA_HOUR, hr);
+            i.putExtra(AlarmClock.EXTRA_MINUTES, min);
+            i.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
+            startActivityForResult(i, 1);
+            num++;
+        }
+        catch(Exception e){
+
+        }
+
 
     }
 

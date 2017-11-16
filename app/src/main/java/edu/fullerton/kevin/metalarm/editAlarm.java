@@ -38,6 +38,11 @@ public class editAlarm extends AppCompatActivity implements View.OnClickListener
         switch(view.getId()){
             case R.id.saveAlarm:
                 addAlarm();
+            case R.id.discardChanges:
+                Intent intent = new Intent(this, alarm.class);
+                startActivity(intent);
+            case R.id.deleteAlarm:
+
         }
     }
 
