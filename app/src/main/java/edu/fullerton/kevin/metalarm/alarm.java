@@ -12,6 +12,8 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class alarm extends AppCompatActivity {
@@ -99,6 +101,11 @@ public class alarm extends AppCompatActivity {
 
     private void setAlarms(){
         try{
+            Calendar currTime = Calendar.getInstance();
+            long millS = currTime.getTimeInMillis();
+            Date date = currTime.getTime();
+            int minutes = (int) ((millS / (1000*60)) % 60);
+            int hours   = (int) ((millS / (1000*60*60)) % 24);
             item_alarm a = alarm.get(num);
             int hr = a.getHour();
             int min = a.getMin();
