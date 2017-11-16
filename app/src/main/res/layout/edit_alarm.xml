@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Edit Alarm" />
+
+    <EditText
+        android:id="@+id/alarmEditName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:hint="Title" />
+
+    <TimePicker
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:timePickerMode="spinner"
+        android:id="@+id/alarmEditTime"
+        ></TimePicker>
+
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:id="@+id/saveAlarm"
+        android:text="Save"/>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:id="@+id/discardChanges"
+        android:text="Discard"/>
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:id="@+id/deleteAlarm"
+        android:text="Delete"/>
+
+</LinearLayout>
