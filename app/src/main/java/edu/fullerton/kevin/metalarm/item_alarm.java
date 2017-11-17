@@ -6,7 +6,7 @@ package edu.fullerton.kevin.metalarm;
 
 public class item_alarm {
 
-    private long taskId;
+    private long alarmId;
     private long listId;
     private String name;
     private int hour;
@@ -30,19 +30,19 @@ public class item_alarm {
         this.min = min;
     }
 
-    public item_alarm(int taskId, String name, int hour, int min) {
-        this.taskId = taskId;
+    public item_alarm(int alarmId, String name, int hour, int min) {
+        this.alarmId = alarmId;
         this.name = name;
         this.hour = hour;
         this.min = min;
     }
 
     public long getId() {
-        return taskId;
+        return alarmId;
     }
 
-    public void setId(long taskId) {
-        this.taskId = taskId;
+    public void setId(long alarmId) {
+        this.alarmId = alarmId;
     }
 
     public long getListId() {

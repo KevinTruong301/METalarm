@@ -7,6 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:textSize="30dp"
         android:text="Edit Alarm" />
 
     <EditText
@@ -30,7 +31,7 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:id="@+id/saveAlarm"
-        android:text="Save"/>
+        android:text="Edit"/>
 
     <Button
         android:layout_width="100dp"

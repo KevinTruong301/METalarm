@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class alarmDB {
 
     // database constants
-    public static final String DB_NAME = "alarms3.db";
+    public static final String DB_NAME = "alarms.db";
     public static final int    DB_VERSION = 1;
 
     // alarm table constants
@@ -34,7 +34,7 @@ public class alarmDB {
 
     // CREATE and DROP TABLE statements
 
-    public static final String CREATE_TASK_TABLE =
+    public static final String CREATE_ALARM_TABLE =
             "CREATE TABLE " + ALARM_TABLE + " (" +
                     ALARM_ID        + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     ALARM_NAME       + " TEXT, " +
@@ -56,17 +56,13 @@ public class alarmDB {
         @Override
         public void onCreate(SQLiteDatabase db) {
             // create tables
-            db.execSQL(CREATE_TASK_TABLE);
+            db.execSQL(CREATE_ALARM_TABLE);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db,
                               int oldVersion, int newVersion) {
 
-            Log.d("Task list", "Upgrading db from version "
-                    + oldVersion + " to " + newVersion);
-
-            Log.d("Task list", "Deleting all data!");
             db.execSQL(alarmDB.DROP_ALARM_TABLE);
             onCreate(db);
         }
@@ -109,7 +105,7 @@ public class alarmDB {
         return alarm;
     }
 
-    public item_alarm getTask(long id) {
+    public item_alarm getAlarm(long id) {
         String where = ALARM_ID + "= ?";
         String[] whereArgs = { Long.toString(id) };
 
@@ -132,12 +128,12 @@ public class alarmDB {
         }
         else {
             try {
-                item_alarm task = new item_alarm(
+                item_alarm alarm = new item_alarm(
                         cursor.getInt(ALARM_ID_COL),
                         cursor.getString(ALARM_NAME_COL),
                         cursor.getInt(ALARM_HOUR_COL),
                         cursor.getInt(ALARM_MIN_COL));
-                return task;
+                return alarm;
             }
             catch(Exception e) {
                 return null;
@@ -145,11 +141,11 @@ public class alarmDB {
         }
     }
 
-    public long insertAlarm(item_alarm task) {
+    public long insertAlarm(item_alarm alarm) {
         ContentValues cv = new ContentValues();
-        cv.put(ALARM_NAME, task.getName());
-        cv.put(ALARM_HOUR, task.getHour());
-        cv.put(ALARM_MIN, task.getMin());
+        cv.put(ALARM_NAME, alarm.getName());
+        cv.put(ALARM_HOUR, alarm.getHour());
+        cv.put(ALARM_MIN, alarm.getMin());
 
         this.openWriteableDB();
         long rowID = db.insert(ALARM_TABLE, null, cv);
@@ -158,14 +154,14 @@ public class alarmDB {
         return rowID;
     }
 
-    public int updateAlarm(item_alarm task) {
+    public int updateAlarm(item_alarm alarm) {
         ContentValues cv = new ContentValues();
-        cv.put(ALARM_NAME, task.getName());
-        cv.put(ALARM_HOUR, task.getHour());
-        cv.put(ALARM_MIN, task.getMin());
+        cv.put(ALARM_NAME, alarm.getName());
+        cv.put(ALARM_HOUR, alarm.getHour());
+        cv.put(ALARM_MIN, alarm.getMin());
 
         String where = ALARM_ID + "= ?";
-        String[] whereArgs = { String.valueOf(task.getId()) };
+        String[] whereArgs = { String.valueOf(alarm.getId()) };
 
         this.openWriteableDB();
         int rowCount = db.update(ALARM_TABLE, cv, where, whereArgs);
@@ -174,7 +170,7 @@ public class alarmDB {
         return rowCount;
     }
 
-    public int deleteTask(long id) {
+    public int deleteAlarm(long id) {
         String where = ALARM_ID + "= ?";
         String[] whereArgs = { String.valueOf(id) };
 
